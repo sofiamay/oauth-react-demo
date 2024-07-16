@@ -5,9 +5,9 @@ import { SERVER_URL, SERVER_LOGGED_IN_PATH, SERVER_LOG_OUT_PATH, SERVER_AUTH_PAT
 // Ensures cookie is sent
 axios.defaults.withCredentials = true;
 
-const loggedInUrl = `${SERVER_URL}/${SERVER_LOGGED_IN_PATH}`;
-const logOutUrl = `${SERVER_URL}/${SERVER_LOG_OUT_PATH}`;
-const googleAuthPath = `${SERVER_URL}/${SERVER_AUTH_PATH}`;
+const loggedInUrl = `${SERVER_URL}${SERVER_LOGGED_IN_PATH}`;
+const logOutUrl = `${SERVER_URL}${SERVER_LOG_OUT_PATH}`;
+const googleAuthPath = `${SERVER_URL}${SERVER_AUTH_PATH}`;
 
 interface AuthContextInterface {
   loggedIn: boolean;
