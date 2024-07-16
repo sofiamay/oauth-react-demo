@@ -9,7 +9,10 @@ import req from 'express/lib/request';
 
 // example data for DEMO PURPOSES ONLY
 import mockDb from './mock-db';
+
+// constants
 const EXAMPLE_TRANSACTIONS = mockDb.transactions;
+const PORT = process.env.PORT || 5000;
 
 /* --- Config --- */
 
@@ -166,3 +169,6 @@ app.get('/user/transactions', auth, (_, res) => {
   }
 });
 
+/* -- Start Server -- */
+
+app.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`))
