@@ -1,10 +1,12 @@
 import { createContext, useContext, useState, useCallback, useEffect, PropsWithChildren } from "react";
 import axios from 'axios';
+import { SERVER_URL, SERVER_LOGGED_IN_PATH, SERVER_LOG_OUT_PATH } from '../../constants';
 
 // Ensures cookie is sent
 axios.defaults.withCredentials = true;
 
-const serverUrl = process.env.REACT_APP_SERVER_URL;
+const loggedInUrl = `${SERVER_URL}/${SERVER_LOGGED_IN_PATH}`;
+const logOutUrl = `${SERVER_URL}/${SERVER_LOG_OUT_PATH}`;
 
 interface AuthContextInterface {
   loggedIn: boolean;
@@ -41,7 +43,7 @@ export const AuthContextProvider: React.FC<PropsWithChildren> = ({ children }) =
     try {
       const {
         data: { loggedIn: logged_in, user },
-      } = await axios.get(`${serverUrl}/auth/logged_in`);
+      } = await axios.get(loggedInUrl);
       setLoggedIn(logged_in);
       user && setUser(user);
     } catch (err) {
@@ -51,7 +53,7 @@ export const AuthContextProvider: React.FC<PropsWithChildren> = ({ children }) =
 
   const logoutUser = async () => {
     try {
-      await axios.post(`${serverUrl}/auth/logout`)
+      await axios.post(logOutUrl);
       // Check login state again
       checkLoginState();
     } catch (err) {
