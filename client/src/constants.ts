@@ -6,5 +6,12 @@ const SERVER_LOG_OUT_PATH = "/auth/logout";
 
 /* -- Site Info -- */
 const SITE_TITLE = "Oauth Demo";
+const SITE_YEAR = new Date().getFullYear();
 
-export { SERVER_URL, SERVER_LOGGED_IN_PATH, SERVER_LOG_OUT_PATH, SITE_TITLE };
+export {
+  SERVER_URL,
+  SERVER_LOGGED_IN_PATH,
+  SERVER_LOG_OUT_PATH,
+  SITE_TITLE,
+  SITE_YEAR,
+};
