@@ -1,12 +1,13 @@
 import { createContext, useContext, useState, useCallback, useEffect, PropsWithChildren } from "react";
 import axios from 'axios';
-import { SERVER_URL, SERVER_LOGGED_IN_PATH, SERVER_LOG_OUT_PATH } from '../constants';
+import { SERVER_URL, SERVER_LOGGED_IN_PATH, SERVER_LOG_OUT_PATH, SERVER_AUTH_PATH } from '../constants';
 
 // Ensures cookie is sent
 axios.defaults.withCredentials = true;
 
 const loggedInUrl = `${SERVER_URL}/${SERVER_LOGGED_IN_PATH}`;
 const logOutUrl = `${SERVER_URL}/${SERVER_LOG_OUT_PATH}`;
+const googleAuthPath = `${SERVER_URL}/${SERVER_AUTH_PATH}`;
 
 interface AuthContextInterface {
   loggedIn: boolean;
@@ -17,6 +18,7 @@ interface AuthContextInterface {
   };
   checkLoginState: (value: string) => void;
   logoutUser: () => void;
+  getGoogleAuthURL: () => Promise<string | undefined>;
 }
 
 const AuthContext = createContext<AuthContextInterface | undefined>(undefined);
@@ -51,6 +53,18 @@ export const AuthContextProvider: React.FC<PropsWithChildren> = ({ children }) =
     }
   }, []);
 
+  const getGoogleAuthURL= async () => {
+    try {
+      // Gets authentication url from backend server
+      const {
+        data: { url },
+      } = await axios.get(googleAuthPath);
+      return url as string;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   const logoutUser = async () => {
     try {
       await axios.post(logOutUrl);
@@ -66,7 +80,7 @@ export const AuthContextProvider: React.FC<PropsWithChildren> = ({ children }) =
   }, [checkLoginState]);
 
   return (
-    <AuthContext.Provider value={{ loggedIn, checkLoginState, logoutUser, user }}>
+    <AuthContext.Provider value={{ loggedIn, checkLoginState, logoutUser, getGoogleAuthURL, user }}>
       {children}
     </AuthContext.Provider>
   )
