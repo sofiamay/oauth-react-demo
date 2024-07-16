@@ -1,0 +1,28 @@
+{
+  "transactions": [
+    {
+      "id": "05858aad-7301-4a16-9a7f-a6d6931090e2",
+      "type": "buy",
+      "date": "2024-06-07",
+      "asset": "BTC",
+      "amount": "0.000015 BTC",
+      "status": "completed"
+    },
+    {
+      "id": "507f47ff-9c61-410b-af5f-363792846cbd",
+      "type": "sell",
+      "date": "2024-06-28",
+      "asset": "BTC",
+      "amount": "0.000015 BTC",
+      "status": "completed"
+    },
+    {
+      "id": "ce372e81-7e4f-4e07-9d6b-54a6d434ab49",
+      "type": "buy",
+      "date": "2024-07-02",
+      "asset": "USD",
+      "amount": "256 USD",
+      "status": "completed"
+    }
+  ]
+}
