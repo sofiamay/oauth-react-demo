@@ -41,7 +41,7 @@
 	/* Background Colors */
 	--bg-light-color: var(--gray-999);
 	.bg-light-color { background-color: var(--bg-light-color); }
-	--bg-dark-color: var(--primary-dark);
+	--bg-dark-color: var(--primary);
 	.bg-dark-color { background-color: var(--bg-dark-color); }
 
 	/* Gradients */
