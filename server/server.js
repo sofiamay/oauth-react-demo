@@ -5,6 +5,11 @@ import axios from 'axios';
 import queryString from 'query-string';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import req from 'express/lib/request';
+
+// example data for DEMO PURPOSES ONLY
+import mockDb from './mock-db';
+const EXAMPLE_TRANSACTIONS = mockDb.transactions;
 
 /* --- Config --- */
 
@@ -115,3 +120,49 @@ app.get('auth/token', async (req, res) => {
     res.status(400).json({ message: 'Invalid auth code' });
   }
 });
+
+// returns logged in state along with user info
+// also refreshes token
+app.get('/auth/logged_in', (req, res) => {
+  try {
+    //get token from cookie
+    const token = req.cookies.token;
+    if (!token) return res.json({ loggedIn: false });
+
+    // get user info from token
+    const { user } = jwt.verify(token, config.tokenSecret);
+
+    // reset token in cookie 
+    const newToken = jwt.sign({ user }, config.tokenSecret, {
+      expiresIn: config.tokenExpiration,
+    });
+    res.cookie('token', newToken, {
+      httpOnly: true,
+      secure: true,
+      maxAge: config.tokenExpiration,
+    });
+
+    // send user back to client
+    res.json({ loggedIn: true, user });
+  } catch (error) {
+    res.json({ loggedIn: false });
+  }
+});
+
+// log out user by clearing token
+app.post('/auth/logout', (_, res) => {
+  res.clearCookie('token');
+  res.json({ message: 'Log out success' });
+});
+
+// get user transactions (FOR DEMO PURPOSES ONLY)
+app.get('/user/transactions', auth, (_, res) => {
+  try {
+    const transactions = EXAMPLE_TRANSACTIONS;
+    res.json({ transactions });
+  } catch (error) {
+    console.error('Error: ', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
