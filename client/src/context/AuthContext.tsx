@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, useEffect, PropsWithChildren } from "react";
 import axios from 'axios';
-import { SERVER_URL, SERVER_LOGGED_IN_PATH, SERVER_LOG_OUT_PATH } from '../../constants';
+import { SERVER_URL, SERVER_LOGGED_IN_PATH, SERVER_LOG_OUT_PATH } from '../constants';
 
 // Ensures cookie is sent
 axios.defaults.withCredentials = true;
