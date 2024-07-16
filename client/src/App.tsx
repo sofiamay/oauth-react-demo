@@ -1,5 +1,7 @@
 
 import { AuthContextProvider } from './context/AuthContext';
+import { RouterProvider } from "react-router-dom";
+import router from './router';
 
 import './App.css';
 
@@ -8,7 +10,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <AuthContextProvider>
-          App goes here
+        <RouterProvider router={router} />
         </AuthContextProvider>
       </header>
     </div>
