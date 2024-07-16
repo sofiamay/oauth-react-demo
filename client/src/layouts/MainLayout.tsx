@@ -2,6 +2,7 @@ import React from 'react';
 import { PropsWithChildren } from 'react';
 
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const DEFAULT_TITLE = "Main Layout";
 
@@ -12,17 +13,15 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<PropsWithChildren<MainLayoutProps>> = ({ title = DEFAULT_TITLE, children }) => {
  return (
- <div>
+ <>
   <Header title={title} />
 
   <main>
     {children}
   </main>
 
-  <footer>
-    {/* Footer content goes here */}
-  </footer>
- </div>
+  <Footer />
+ </>
  );
 };
 export default MainLayout;
